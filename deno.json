@@ -1,0 +1,26 @@
+{
+  "lint": {
+    "files": {
+      "include": ["./"]
+    },
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "fmt": {
+    "files": {
+      "include": ["./"]
+    },
+    "options": {
+      "useTabs": false,
+      "lineWidth": 80,
+      "indentWidth": 2,
+      "singleQuote": true,
+      "proseWrap": "preserve"
+    }
+  },
+
+  "tasks": {
+    "run": "deno run --allow-net --allow-env mod.ts"
+  }
+}
