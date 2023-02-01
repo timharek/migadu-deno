@@ -1,5 +1,5 @@
-// @deno-types='./mod.d.ts'
-import { Command, Config } from './deps.ts';
+// @deno-types='../mod.d.ts'
+import { Command, Config } from '../deps.ts';
 
 await new Command()
   .name(Config.name)
@@ -16,7 +16,7 @@ await new Command()
     value: (value: boolean, previous = 0) => (value ? previous + 1 : 0),
   })
   .action(
-    async (options) => {
+    (options: { verbose: number }) => {
       console.log(options);
     },
   )

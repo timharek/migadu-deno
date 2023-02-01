@@ -1,15 +1,21 @@
 {
   "lint": {
     "files": {
-      "include": ["./"]
+      "include": [
+        "./"
+      ]
     },
     "rules": {
-      "tags": ["recommended"]
+      "tags": [
+        "recommended"
+      ]
     }
   },
   "fmt": {
     "files": {
-      "include": ["./"]
+      "include": [
+        "./"
+      ]
     },
     "options": {
       "useTabs": false,
@@ -19,8 +25,7 @@
       "proseWrap": "preserve"
     }
   },
-
   "tasks": {
-    "run": "deno run --allow-net --allow-env mod.ts"
+    "run": "deno run src/cli.ts"
   }
 }
