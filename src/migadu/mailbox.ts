@@ -1,4 +1,5 @@
 import 'https://deno.land/std@0.191.0/dotenv/load.ts';
+import { Status } from '../../deps.ts';
 
 const MIGADU_URL = 'https://api.migadu.com/v1/domains';
 
@@ -97,5 +98,36 @@ export async function create(
     console.error(error);
 
     return 'Could not create new mailbox';
+  }
+}
+
+export async function remove(
+  { migaduUser, userToken, domain }: CLI.GlobalOptions,
+  localPart: string,
+): Promise<Migadu.Mailbox | string> {
+  if (!localPart) {
+    throw new Error('localPart is not defined.');
+  }
+  try {
+    const response = await fetch(
+      `${MIGADU_URL}/${domain}/mailboxes/${localPart}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Basic ${generateAuth(migaduUser, userToken)}`,
+          Accept: ' application/json',
+          'Content-Type': ' application/json',
+        },
+      },
+    );
+
+    if (response.status != Status.OK) {
+      return 'Could not delete mailbox';
+    }
+    return `Deleted ${localPart}@${domain}`;
+  } catch (error) {
+    console.error(error);
+
+    return 'Could not delete mailbox';
   }
 }

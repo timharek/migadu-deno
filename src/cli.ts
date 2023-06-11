@@ -19,7 +19,7 @@ const mailbox = new Command()
   })
   .command(
     'create <name:string> <localPart:string> [password:string]',
-    'Create new mailboxes for a domain.',
+    'Create new mailbox for domain.',
   )
   .alias('add')
   .option(
@@ -47,7 +47,13 @@ const mailbox = new Command()
         }),
       );
     },
-  );
+  )
+  .command('delete <localPart:string>', 'Remove single mailbox from domain.')
+  .alias('remove')
+  .alias('rm')
+  .action(async (options: CLI.GlobalOptions, localPart: string) => {
+    console.log(await Mailbox.remove(options, localPart));
+  });
 
 await new Command()
   .name(Config.name)
