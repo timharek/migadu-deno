@@ -6,7 +6,7 @@ import * as Identity from './migadu/identity.ts';
 
 const mailbox = new Command()
   .description(
-    'Information retrieval and management of mailboxes of an existing domain hosted in your organization',
+    'Manage mailboxes.',
   )
   .alias('mbox')
   .command('index', 'Get all mailboxes of a domain.')
@@ -64,7 +64,7 @@ const mailbox = new Command()
 
 const identity = new Command()
   .description(
-    'Information retrieval and management of identities on mailboxes of an existing domain',
+    'Manage identities on a specific mailbox.',
   )
   .alias('id')
   .command(
