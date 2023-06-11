@@ -48,11 +48,16 @@ const mailbox = new Command()
       );
     },
   )
-  .command('delete <localPart:string>', 'Remove single mailbox from domain.')
+  .command('delete <localPart:string>', 'Remove mailbox from domain.')
   .alias('remove')
   .alias('rm')
   .action(async (options: CLI.GlobalOptions, localPart: string) => {
     console.log(await Mailbox.remove(options, localPart));
+  })
+  .command('update <localPart:string>', 'Update mailbox on domain.')
+  .alias('up')
+  .action(() => {
+    console.log('Not implemented yet');
   });
 
 await new Command()
