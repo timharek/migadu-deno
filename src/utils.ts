@@ -6,7 +6,7 @@ function generateAuth(username: string, apiKey: string): string {
 
 interface Fetch {
   urlPath: string;
-  method?: 'GET' | 'POST' | 'PATCH' | 'DELETE';
+  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   options: CLI.GlobalOptions;
   body?: string;
 }
