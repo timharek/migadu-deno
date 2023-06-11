@@ -1,10 +1,8 @@
 {
   "lint": {
-    "files": {
-      "include": [
-        "./"
-      ]
-    },
+    "include": [
+      "./"
+    ],
     "rules": {
       "tags": [
         "recommended"
@@ -15,18 +13,14 @@
     }
   },
   "fmt": {
-    "files": {
-      "include": [
-        "./"
-      ]
-    },
-    "options": {
-      "useTabs": false,
-      "lineWidth": 80,
-      "indentWidth": 2,
-      "singleQuote": true,
-      "proseWrap": "preserve"
-    }
+    "include": [
+      "./"
+    ],
+    "useTabs": false,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "singleQuote": true,
+    "proseWrap": "preserve"
   },
   "tasks": {
     "run": "deno run src/cli.ts",
