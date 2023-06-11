@@ -11,6 +11,11 @@ const mailbox = new Command()
   .alias('list')
   .action(async (options: CLI.Options) => {
     console.log(await Mailbox.index(options));
+  })
+  .command('show <localPart:string>', 'Get single mailboxes for a domain.')
+  .alias('get')
+  .action(async (options: CLI.Options, localPart: string) => {
+    console.log(await Mailbox.show(options, localPart));
   });
 
 await new Command()

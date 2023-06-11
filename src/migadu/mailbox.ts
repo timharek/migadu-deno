@@ -25,3 +25,27 @@ export async function index(
     '\n',
   );
 }
+
+export async function show(
+  { migaduUser, userToken, domain, json }: CLI.Options,
+  localPart: string,
+): Promise<Migadu.Mailbox | string> {
+  if (!localPart) {
+    throw new Error('localPart is not defined.');
+  }
+  const response = (await fetch(
+    `https://api.migadu.com/v1/domains/${domain}/mailboxes/${localPart}`,
+    {
+      headers: {
+        Authorization: `Basic ${generateAuth(migaduUser, userToken)}`,
+      },
+    },
+  )).text();
+  const result = JSON.parse(await response) as Migadu.Mailbox;
+
+  if (json) {
+    return result;
+  }
+
+  return `${result.name} <${result.address}>`;
+}
