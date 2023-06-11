@@ -1,8 +1,9 @@
 declare namespace Migadu {
   interface Mailbox {
-    local_part: string;
-    domain: string;
-    address: string;
+    [key: string]: unknown;
+    readonly local_part: string;
+    readonly domain: string;
+    readonly address: string;
     name: string;
     is_internal: boolean;
     may_send: boolean;
@@ -30,9 +31,10 @@ declare namespace Migadu {
   }
 
   interface Identity {
-    name: string;
-    local_part: string;
-    address: string;
+    [key: string]: unknown;
+    readonly name: string;
+    readonly local_part: string;
+    readonly address: string;
     domain_name: string;
     footer_active: boolean;
     footer_html_body: string | null;
