@@ -7,6 +7,7 @@ const mailbox = new Command()
   .description(
     'Information retrieval and management of mailboxes of an existing domain hosted in your organization',
   )
+  .alias('mbox')
   .command('index', 'Get all mailboxes of a domain.')
   .alias('list')
   .action(async (options: CLI.GlobalOptions) => {
