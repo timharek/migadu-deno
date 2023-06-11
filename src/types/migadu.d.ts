@@ -26,5 +26,21 @@ declare namespace Migadu {
     footer_active: string;
     footer_plain_body: string;
     footer_html_body: string;
+    identities: Identity[];
+  }
+
+  interface Identity {
+    name: string;
+    local_part: string;
+    address: string;
+    domain_name: string;
+    footer_active: boolean;
+    footer_html_body: string | null;
+    footer_plain_body: string | null;
+    may_access_imap: boolean;
+    may_access_managesieve: boolean;
+    may_access_pop3: boolean;
+    may_receive: boolean;
+    may_send: boolean;
   }
 }

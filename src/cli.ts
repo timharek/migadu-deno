@@ -2,6 +2,7 @@
 
 import { Command, Config } from '../deps.ts';
 import * as Mailbox from './migadu/mailbox.ts';
+import * as Identity from './migadu/identity.ts';
 
 const mailbox = new Command()
   .description(
@@ -61,6 +62,20 @@ const mailbox = new Command()
     console.log('Not implemented yet');
   });
 
+const identity = new Command()
+  .description(
+    'Information retrieval and management of identities on mailboxes of an existing domain',
+  )
+  .alias('id')
+  .command(
+    'index <localPart:string>',
+    'Get all identities for mailbox on domain.',
+  )
+  .alias('list')
+  .action(async (options: CLI.GlobalOptions, localPart: string) => {
+    console.log(await Identity.index(options, localPart));
+  });
+
 await new Command()
   .name(Config.name)
   .version(Config.version)
@@ -90,4 +105,5 @@ await new Command()
   .globalOption('--json', 'JSON output.')
   .globalOption('-d, --debug', 'Debug output.')
   .command('mailbox', mailbox)
+  .command('identity', identity)
   .parse(Deno.args);
