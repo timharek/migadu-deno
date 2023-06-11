@@ -82,7 +82,30 @@ const identity = new Command()
   .alias('get')
   .action(async (options: CLI.GlobalOptions, localPart: string, id: string) => {
     console.log(await Identity.show(options, localPart, id));
-  });
+  })
+  .command(
+    'create <mailbox:string> <name:string> <localPart:string> [password:string]',
+    'Create new mailbox for domain.',
+  )
+  .alias('add')
+  .action(
+    async (
+      options: CLI.GlobalOptions,
+      mailbox: string,
+      name: string,
+      local_part: string,
+      password?: string,
+    ) => {
+      console.log(
+        await Identity.create(options, {
+          mailbox,
+          name,
+          local_part,
+          password,
+        }),
+      );
+    },
+  );
 
 await new Command()
   .name(Config.name)

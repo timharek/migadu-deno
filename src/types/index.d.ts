@@ -21,4 +21,11 @@ declare namespace CLI {
     password_recovery_email?: string;
     is_internal?: boolean;
   }
+
+  interface IdentityCreate {
+    mailbox: string;
+    name: string;
+    local_part: string;
+    password?: string;
+  }
 }
