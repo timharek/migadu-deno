@@ -18,7 +18,7 @@ export async function index(
   const result = JSON.parse(await response) as { mailboxes: Migadu.Mailbox[] };
 
   if (json) {
-    return result.mailboxes;
+    return JSON.stringify(result.mailboxes, null, 2);
   }
 
   return result.mailboxes.map((box) => `${box.name} <${box.address}>`).join(
@@ -44,7 +44,7 @@ export async function show(
   const result = JSON.parse(await response) as Migadu.Mailbox;
 
   if (json) {
-    return result;
+    return JSON.stringify(result, null, 2);
   }
 
   return `${result.name} <${result.address}>`;
