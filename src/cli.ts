@@ -74,6 +74,14 @@ const identity = new Command()
   .alias('list')
   .action(async (options: CLI.GlobalOptions, localPart: string) => {
     console.log(await Identity.index(options, localPart));
+  })
+  .command(
+    'show <localPart:string> <id:string>',
+    'Get single identity for mailbox on domain.',
+  )
+  .alias('get')
+  .action(async (options: CLI.GlobalOptions, localPart: string, id: string) => {
+    console.log(await Identity.show(options, localPart, id));
   });
 
 await new Command()

@@ -17,3 +17,23 @@ export async function index(
     '\n',
   );
 }
+
+export async function show(
+  options: CLI.GlobalOptions,
+  localPart: string,
+  id: string,
+): Promise<Migadu.Identity | string> {
+  if (!localPart) {
+    throw new Error('localPart is not defined.');
+  }
+  const result = await _fetch<Migadu.Identity>({
+    urlPath: `${options.domain}/mailboxes/${localPart}/identities/${id}`,
+    options,
+  });
+
+  if (options.json) {
+    return JSON.stringify(result, null, 2);
+  }
+
+  return `${result.name} <${result.address}>`;
+}
