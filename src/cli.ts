@@ -58,8 +58,8 @@ const mailbox = new Command()
   })
   .command('update <localPart:string>', 'Update mailbox on domain.')
   .alias('up')
-  .action(() => {
-    console.log('Not implemented yet');
+  .action(async (options: CLI.GlobalOptions, localPart: string) => {
+    console.log(await Mailbox.updateCLI(options, localPart));
   });
 
 const identity = new Command()
