@@ -9,14 +9,45 @@ const mailbox = new Command()
   )
   .command('index', 'Get all mailboxes of a domain.')
   .alias('list')
-  .action(async (options: CLI.Options) => {
+  .action(async (options: CLI.GlobalOptions) => {
     console.log(await Mailbox.index(options));
   })
   .command('show <localPart:string>', 'Get single mailboxes for a domain.')
   .alias('get')
-  .action(async (options: CLI.Options, localPart: string) => {
+  .action(async (options: CLI.GlobalOptions, localPart: string) => {
     console.log(await Mailbox.show(options, localPart));
-  });
+  })
+  .command(
+    'create <name:string> <localPart:string> [password:string]',
+    'Create new mailboxes for a domain.',
+  )
+  .alias('add')
+  .option(
+    '-i, --internal',
+    'Internal, private mailbox and restrict it to receive messages only via Migadu outgoing servers.',
+  )
+  .option(
+    '-r, --recovery <inviteEmail:string>',
+    'E-mail address to receieve invite.',
+  )
+  .action(
+    async (
+      options: CLI.CreateOptions,
+      name: string,
+      local_part: string,
+      password?: string,
+    ) => {
+      console.log(
+        await Mailbox.create(options, {
+          name,
+          local_part,
+          password,
+          is_internal: options.internal,
+          password_recovery_email: options.recovery,
+        }),
+      );
+    },
+  );
 
 await new Command()
   .name(Config.name)
