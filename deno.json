@@ -23,7 +23,7 @@
     "proseWrap": "preserve"
   },
   "tasks": {
-    "run": "deno run src/cli.ts",
+    "run": "deno run -A src/cli.ts",
     "check": "deno fmt --check && deno lint",
     "setup:hooks": "deno run -A -r https://deno.land/x/githooks/githooks.ts"
   },

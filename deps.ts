@@ -5,5 +5,5 @@ export const Config = {
   version: 'v0.1.0',
   description: 'CLI for Migadu official API.',
   author: 'Tim Hårek Andreassen <tim@tim@harek.no>',
-  source: 'https://git.sr.ht/~timharek/deno-migadu',
+  source: 'https://git.sr.ht/~timharek/migadu-deno',
 };

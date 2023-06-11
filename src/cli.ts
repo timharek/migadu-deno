@@ -1,5 +1,17 @@
 // @deno-types='../mod.d.ts'
+
 import { Command, Config } from '../deps.ts';
+import * as Mailbox from './migadu/mailbox.ts';
+
+const mailbox = new Command()
+  .description(
+    'Information retrieval and management of mailboxes of an existing domain hosted in your organization',
+  )
+  .command('index', 'Get all mailboxes of a domain.')
+  .alias('list')
+  .action(async (options: CLI.Options) => {
+    console.log(await Mailbox.index(options));
+  });
 
 await new Command()
   .name(Config.name)
@@ -11,19 +23,23 @@ await new Command()
     'Example #1',
     'magic -v',
   )
-  .env(
-    'MIGADU_USER=<value:string>',
+  .globalEnv(
+    'MIGADU_USER=<email:string>',
     'E-mail address for Migadu account (not mailbox email).',
   )
-  .env('USER_TOKEN=<value:string>', 'API token for Migadu account.')
-  .env('DOMAIN=<value:string>', 'A domain in the Migadu account.')
+  .globalEnv('USER_TOKEN=<token:string>', 'API token for Migadu account.')
+  .globalEnv('DOMAIN=<value:string>', 'A domain in the Migadu account.')
+  .globalOption(
+    '--migaduUser [email:string]',
+    'E-mail address for Migadu account (not mailbox email).',
+  )
+  .globalOption('--userToken [token:string]', 'API token for Migadu account.')
+  .globalOption('--domain [domain:string]', 'A domain in the Migadu account.')
   .globalOption('-v, --verbose', 'A more verbose output.', {
     collect: true,
     value: (value: boolean, previous = 0) => (value ? previous + 1 : 0),
   })
-  .action(
-    (options: { verbose: number }) => {
-      console.log(options);
-    },
-  )
+  .globalOption('--json', 'JSON output.')
+  .globalOption('-d, --debug', 'Debug output.')
+  .command('mailbox', mailbox)
   .parse(Deno.args);
