@@ -85,7 +85,7 @@ const identity = new Command()
   })
   .command(
     'create <mailbox:string> <name:string> <localPart:string> [password:string]',
-    'Create new mailbox for domain.',
+    'Create new identity for mailbox for domain.',
   )
   .alias('add')
   .action(
@@ -105,7 +105,21 @@ const identity = new Command()
         }),
       );
     },
-  );
+  )
+  .command(
+    'delete <mailbox:string> <id:string>',
+    'Remove identity for mailbox on domain.',
+  )
+  .alias('remove')
+  .alias('rm')
+  .action(async (options: CLI.GlobalOptions, mailbox: string, id: string) => {
+    console.log(await Identity.remove(options, mailbox, id));
+  })
+  .command('update <mailbox:string> <id:string>', 'Update mailbox on domain.')
+  .alias('up')
+  .action(() => {
+    console.log('Not implemented yet');
+  });
 
 await new Command()
   .name(Config.name)

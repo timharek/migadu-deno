@@ -63,3 +63,22 @@ export async function create(
 
   return `Created identity ${result.name} <${result.address}> on mailbox ${mailbox}@${options.domain}`;
 }
+
+export async function remove(
+  options: CLI.GlobalOptions,
+  mailbox: string,
+  id: string,
+): Promise<string> {
+  try {
+    await _fetch<Migadu.Mailbox>({
+      urlPath: `${options.domain}/mailboxes/${mailbox}/identities/${id}`,
+      method: 'DELETE',
+      options,
+    });
+    return `Deleted identity ${id} on mailbox ${mailbox}@${options.domain}`;
+  } catch (error) {
+    console.error(error);
+
+    return 'Could not delete mailbox';
+  }
+}
