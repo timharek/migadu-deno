@@ -11,6 +11,12 @@ await new Command()
     'Example #1',
     'magic -v',
   )
+  .env(
+    'MIGADU_USER=<value:string>',
+    'E-mail address for Migadu account (not mailbox email).',
+  )
+  .env('USER_TOKEN=<value:string>', 'API token for Migadu account.')
+  .env('DOMAIN=<value:string>', 'A domain in the Migadu account.')
   .globalOption('-v, --verbose', 'A more verbose output.', {
     collect: true,
     value: (value: boolean, previous = 0) => (value ? previous + 1 : 0),
