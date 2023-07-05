@@ -1,4 +1,17 @@
 {
+  "tasks": {
+    "run": "deno run -A src/cli.ts",
+    "check": "deno fmt --check && deno lint",
+    "setup:hooks": "deno run -A -r https://deno.land/x/githooks/githooks.ts"
+  },
+  "name": "migadu",
+  "version": "v0.1.0",
+  "author": "Tim Hårek Andreassen <tim@harek.no>",
+  "source": "https://git.sr.ht/~timharek/migadu-deno",
+  "githooks": {
+    "pre-commit": "check",
+    "pre-push": "check"
+  },
   "lint": {
     "include": [
       "./"
@@ -21,14 +34,5 @@
     "indentWidth": 2,
     "singleQuote": true,
     "proseWrap": "preserve"
-  },
-  "tasks": {
-    "run": "deno run -A src/cli.ts",
-    "check": "deno fmt --check && deno lint",
-    "setup:hooks": "deno run -A -r https://deno.land/x/githooks/githooks.ts"
-  },
-  "githooks": {
-    "pre-commit": "check",
-    "pre-push": "check"
   }
 }
