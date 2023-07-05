@@ -5,7 +5,7 @@
     "setup:hooks": "deno run -A -r https://deno.land/x/githooks/githooks.ts"
   },
   "name": "migadu",
-  "version": "v0.1.0",
+  "version": "v0.1.1",
   "author": "Tim Hårek Andreassen <tim@harek.no>",
   "source": "https://git.sr.ht/~timharek/migadu-deno",
   "githooks": {
