@@ -1,3 +1,6 @@
+[![builds.sr.ht status](https://builds.sr.ht/~timharek/migadu-deno/commits/.build.yml.svg)](https://builds.sr.ht/~timharek/migadu-deno/commits/.build.yml?)
+[![GitHub mirror](https://img.shields.io/badge/mirror-GitHub-black.svg?logo=github)](https://github.com/timharek/migadu-deno)
+
 # Migadu
 
 A [Deno][deno] module that can access [Migadu's API][migadu].
