@@ -29,3 +29,9 @@ declare namespace CLI {
     password?: string;
   }
 }
+
+interface OptionProps {
+  domain: string;
+  migaduUser: string;
+  userToken: string;
+}

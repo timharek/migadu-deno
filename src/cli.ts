@@ -1,8 +1,8 @@
 // @deno-types='../mod.d.ts'
 
 import { Command, Config } from '../deps.ts';
-import * as Mailbox from './migadu/mailbox.ts';
-import * as Identity from './migadu/identity.ts';
+import * as Mailbox from './cli/mailbox.ts';
+import * as Identity from './cli/identity.ts';
 
 const mailbox = new Command()
   .description(
@@ -56,10 +56,11 @@ const mailbox = new Command()
   .action(async (options: CLI.GlobalOptions, localPart: string) => {
     console.log(await Mailbox.remove(options, localPart));
   })
+  // TODO: Add optional prop for a body
   .command('update <localPart:string>', 'Update mailbox on domain.')
   .alias('up')
   .action(async (options: CLI.GlobalOptions, localPart: string) => {
-    console.log(await Mailbox.updateCLI(options, localPart));
+    console.log(await Mailbox.updateInteractive(options, localPart));
   });
 
 const identity = new Command()
