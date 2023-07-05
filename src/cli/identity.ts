@@ -1,3 +1,4 @@
+import { CLI } from '../../mod.ts';
 import * as Identity from '../migadu/identity.ts';
 
 export async function index(

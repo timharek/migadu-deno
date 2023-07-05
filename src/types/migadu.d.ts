@@ -1,4 +1,4 @@
-declare namespace Migadu {
+export namespace Migadu {
   interface Mailbox {
     [key: string]: unknown;
     readonly local_part: string;

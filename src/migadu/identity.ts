@@ -1,3 +1,4 @@
+import { CLI, Migadu, OptionProps } from '../../mod.ts';
 import { _fetch } from '../utils.ts';
 
 export async function index(

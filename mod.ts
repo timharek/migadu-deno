@@ -22,3 +22,7 @@
 
 export * as Mailbox from './src/migadu/mailbox.ts';
 export * as Identity from './src/migadu/identity.ts';
+export * from './src/types/migadu.d.ts';
+
+export type { CLI, OptionProps } from './src/types/index.d.ts';
+export type { Migadu } from './src/types/migadu.d.ts';

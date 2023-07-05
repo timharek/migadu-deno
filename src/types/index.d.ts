@@ -1,10 +1,10 @@
-interface OptionProps {
+export interface OptionProps {
   domain: string;
   migaduUser: string;
   userToken: string;
 }
 
-declare namespace CLI {
+export namespace CLI {
   interface GlobalOptions extends OptionProps {
     json?: boolean;
     verbose?: number;

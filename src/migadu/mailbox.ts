@@ -1,5 +1,6 @@
 import 'https://deno.land/std@0.191.0/dotenv/load.ts';
 import { _fetch } from '../utils.ts';
+import { CLI, Migadu, OptionProps } from '../../mod.ts';
 
 export async function index(options: OptionProps): Promise<Migadu.Mailbox[]> {
   const result = await _fetch<{ mailboxes: Migadu.Mailbox[] }>({

@@ -1,9 +1,8 @@
-// @deno-types='../mod.d.ts'
-
 import config from '../deno.json' assert { type: 'json' };
 import { Command } from '../deps.ts';
 import * as Mailbox from './cli/mailbox.ts';
 import * as Identity from './cli/identity.ts';
+import { CLI } from '../mod.ts';
 
 const mailbox = new Command()
   .description(

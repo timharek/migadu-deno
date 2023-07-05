@@ -1,4 +1,5 @@
 import { Checkbox, Input, Secret } from '../../deps.ts';
+import { CLI } from '../../mod.ts';
 import * as Mailbox from '../migadu/mailbox.ts';
 
 export async function index(options: CLI.GlobalOptions): Promise<string> {
