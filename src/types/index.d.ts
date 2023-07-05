@@ -1,8 +1,11 @@
+interface OptionProps {
+  domain: string;
+  migaduUser: string;
+  userToken: string;
+}
+
 declare namespace CLI {
-  interface GlobalOptions {
-    migaduUser: string;
-    userToken: string;
-    domain: string;
+  interface GlobalOptions extends OptionProps {
     json?: boolean;
     verbose?: number;
     debug?: boolean;
@@ -28,10 +31,4 @@ declare namespace CLI {
     local_part: string;
     password?: string;
   }
-}
-
-interface OptionProps {
-  domain: string;
-  migaduUser: string;
-  userToken: string;
 }
