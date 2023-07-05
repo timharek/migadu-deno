@@ -1,12 +1,15 @@
-# cliffy-starter
+# Migadu
 
-Good defaults for CLIs built with [Deno][deno] and [Cliffy][cliffy].
+[Deno][deno] module that can access [Migadu's API][migadu].
 
-## Usage
+There is also an CLI available. More documentaion is coming.
+
+## CLI install
 
 ```sh
-git clone https://git.sr.ht/~timharek/cliffy-starter
+deno install -A https://git.sr.ht/~timharek/migadu-deno/tree/v0.1.0/item/src/cli.ts \
+  -n migadu
 ```
 
 [deno]: https://deno.land
-[cliffy]: https://cliffy.io
+[migadu]: https://www.migadu.com/api/
