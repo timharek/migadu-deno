@@ -1,0 +1,24 @@
+image: alpine/edge
+secrets:
+  - 0323bc6f-a046-4b96-8496-2bac6e7ee107
+environment:
+  DIR: migadu-deno
+triggers:
+  - action: email
+    condition: failure
+    to: tim@harek.no
+tasks:
+  - check: |
+      cd $DIR
+      if [ "$(git rev-parse origin/main)" != "$(git rev-parse HEAD)" ]; then \
+        complete-build; \
+      fi
+  - mirror: |
+      cd $DIR
+      git remote add github git@github.com:timharek/migadu-deno.git
+      ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+      git push github main
+      if [ "$(git describe --exact-match --tags HEAD)" ]; then \
+        git push --tags github; \
+      fi
+
