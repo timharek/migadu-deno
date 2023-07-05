@@ -1,8 +1,24 @@
 # Migadu
 
-[Deno][deno] module that can access [Migadu's API][migadu].
+A [Deno][deno] module that can access [Migadu's API][migadu].
 
 There is also an CLI available. More documentaion is coming.
+
+## Usage
+
+### List all mailboxes
+
+```typescript
+import Mailbox from 'https://deno.land/x/migadu/mod.ts';
+
+const mailboxes = await Mailbox.index({
+  domain: 'example.org',
+  migaduUser: 'alice@example.org',
+  userToken: 'abcxyz',
+});
+
+console.log(mailboxes);
+```
 
 ## CLI install
 
