@@ -1,3 +1,5 @@
+import { CLI } from '../mod.ts';
+
 const MIGADU_URL = 'https://api.migadu.com/v1/domains';
 
 function generateAuth(username: string, apiKey: string): string {

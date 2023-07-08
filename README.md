@@ -12,12 +12,13 @@ There is also an CLI available. More documentaion is coming.
 ### List all mailboxes
 
 ```typescript
-import Mailbox from 'https://deno.land/x/migadu/mod.ts';
+import { index, Migadu } from 'https://deno.land/x/migadu/mod.ts';
 
-const mailboxes = await Mailbox.index({
+const mailboxes = await index<Migadu.Mailbox>({
   domain: 'example.org',
   migaduUser: 'alice@example.org',
   userToken: 'abcxyz',
+  type: 'mailbox',
 });
 
 console.log(mailboxes);
@@ -26,7 +27,7 @@ console.log(mailboxes);
 ## CLI install
 
 ```sh
-deno install -A https://git.sr.ht/~timharek/migadu-deno/tree/v0.1.0/item/src/cli.ts \
+deno install -A https://deno.land/x/migadu/src/cli.ts \
   -n migadu
 ```
 

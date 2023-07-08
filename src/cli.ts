@@ -1,3 +1,4 @@
+import 'https://deno.land/std@0.191.0/dotenv/load.ts';
 import config from '../deno.json' assert { type: 'json' };
 import { Command } from '../deps.ts';
 import * as Mailbox from './cli/mailbox.ts';

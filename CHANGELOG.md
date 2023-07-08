@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - SourceHut builds and GitHub bagdes to README.
 
+### Changed
+
+- Make API-calling generic.
+
 ## [v0.1.1]
 
 ### Changed

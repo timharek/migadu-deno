@@ -6,12 +6,13 @@
  * ### List all mailboxes
  *
  * ```typescript
- * import Mailbox from "https://deno.land/x/migadu/mod.ts";
+ * import { index, Migadu } from "https://deno.land/x/migadu/mod.ts";
  *
- * const mailboxes = await Mailbox.index({
+ * const mailboxes = await index<Migadu.Mailbox>({
  *   domain: "example.org",
  *   migaduUser: "alice@example.org",
  *   userToken: "abcxyz",
+ *   type: "mailbox",
  * });
  *
  * console.log(mailboxes);
@@ -20,8 +21,7 @@
  * @module
  */
 
-export * as Mailbox from './src/migadu/mailbox.ts';
-export * as Identity from './src/migadu/identity.ts';
+export * from './src/migadu.ts';
 export * from './src/types/migadu.d.ts';
 
 export type { CLI, OptionProps } from './src/types/index.d.ts';

@@ -1,9 +1,13 @@
 import { Checkbox, Input, Secret } from '../../deps.ts';
 import { CLI } from '../../mod.ts';
-import * as Mailbox from '../migadu/mailbox.ts';
+import * as M from '../migadu.ts';
+import { Migadu } from '../types/migadu.d.ts';
 
 export async function index(options: CLI.GlobalOptions): Promise<string> {
-  const mailboxes = await Mailbox.index(options);
+  const mailboxes = await M.index<Migadu.Mailbox>({
+    ...options,
+    type: 'mailbox',
+  });
 
   if (options.json) {
     return JSON.stringify(mailboxes, null, 2);
@@ -16,7 +20,10 @@ export async function show(
   options: CLI.GlobalOptions,
   localPart: string,
 ): Promise<string> {
-  const mailbox = await Mailbox.show(options, localPart);
+  const mailbox = await M.show<Migadu.Mailbox>(
+    { ...options, type: 'mailbox' },
+    localPart,
+  );
 
   if (options.json) {
     return JSON.stringify(mailbox, null, 2);
@@ -29,7 +36,10 @@ export async function create(
   options: CLI.GlobalOptions,
   createOptions: CLI.MailboxCreate,
 ): Promise<string> {
-  const newMailbox = await Mailbox.create(options, createOptions);
+  const newMailbox = await M.create<Migadu.Mailbox>({
+    ...options,
+    type: 'mailbox',
+  }, createOptions);
 
   if (options.json) {
     return JSON.stringify(newMailbox, null, 2);
@@ -42,7 +52,10 @@ export async function remove(
   options: CLI.GlobalOptions,
   localPart: string,
 ): Promise<string> {
-  const result = await Mailbox.remove(options, localPart);
+  const result = await M.remove<Migadu.Mailbox>(
+    { ...options, type: 'mailbox' },
+    localPart,
+  );
 
   return result;
 }
@@ -52,7 +65,11 @@ export async function update(
   localPart: string,
   body: string,
 ): Promise<string> {
-  const result = await Mailbox.update(options, localPart, body);
+  const result = await M.update<Migadu.Mailbox>(
+    { ...options, type: 'mailbox' },
+    localPart,
+    body,
+  );
 
   if (options.json) {
     return JSON.stringify(result, null, 2);
@@ -65,7 +82,10 @@ export async function updateInteractive(
   options: CLI.GlobalOptions,
   localPart: string,
 ): Promise<string> {
-  const mailbox = await Mailbox.show(options, localPart);
+  const mailbox = await M.show<Migadu.Mailbox>(
+    { ...options, type: 'mailbox' },
+    localPart,
+  );
   const updatedMailbox = new Map();
   const whatToUpdate = await Checkbox.prompt({
     message: 'What would you like to update?',
