@@ -1,4 +1,4 @@
-import { create, MailboxUpdateInput, show, update } from '../main.ts';
+import { create, delete_, MailboxUpdateInput, show, update } from '../main.ts';
 import { MailboxCreate, MailboxSchema } from '../schemas.ts';
 
 export class Mailbox {
@@ -20,5 +20,15 @@ export class Mailbox {
     const updatedMailbox = await update(input);
 
     return new Mailbox(updatedMailbox);
+  }
+
+  public static async delete(
+    domain: string,
+    localPart: string,
+  ): Promise<string> {
+    // TODO: Check if the mailbox exists before trying to delete
+    await delete_(domain, localPart);
+
+    return `Deleted ${localPart}@${domain}`;
   }
 }
