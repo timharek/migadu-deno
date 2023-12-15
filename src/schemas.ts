@@ -3,6 +3,7 @@ import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
 // TODO: Need to validate domain
 const Domain = z.string();
 const Email = z.string().email();
+const DateString = z.string(z.date());
 
 const IdentitySchema = z.object({
   name: z.string(),
@@ -18,18 +19,18 @@ const IdentitySchema = z.object({
 
 const ForwardSchema = z.object({
   address: Email,
-  blocked_at: z.string().datetime().nullable(),
-  expires_on: z.string().datetime().nullable(),
+  blocked_at: DateString.nullable(),
+  expires_on: DateString.nullable(),
   is_active: z.boolean(),
-  confirmation_sent_at: z.string().datetime(),
-  confirmed_at: z.string().datetime(),
+  confirmation_sent_at: DateString,
+  confirmed_at: DateString,
   remove_upon_expiry: z.boolean(),
 });
 
 export const MailboxSchema = z.object({
   name: z.string(),
   address: Email,
-  expires_on: z.string().datetime().nullable(),
+  expires_on: DateString.nullable(),
   last_login_at: z.string().nullable(),
   password_recovery_email: Email.nullable(),
   storage_usage: z.number(),
@@ -39,7 +40,7 @@ export const MailboxSchema = z.object({
   local_part: z.string(),
   remove_upon_expiry: z.boolean(),
   identities: z.array(IdentitySchema),
-  autorespond_expires_on: z.string().datetime().nullable(),
+  autorespond_expires_on: DateString.nullable(),
   autorespond_active: z.boolean().nullable(),
   may_receive: z.boolean(),
   may_send: z.boolean(),
@@ -80,4 +81,38 @@ const MailboxCreate = z.intersection(
   Invitation,
 );
 
+const Expires = z.discriminatedUnion('autorespond_active', [
+  z.object({
+    autorespond_active: z.literal(true),
+    autorespond_expires_on: DateString,
+  }),
+  z.object({
+    autorespond_active: z.literal(false),
+  }),
+]);
+const MailboxUpdate = z.intersection(
+  z.object({
+    name: z.string().optional(),
+    expires_on: DateString.nullable().optional(),
+    password_recovery_email: Email.nullable().optional(),
+    expireable: z.boolean().optional(),
+    is_internal: z.boolean().nullish().optional(),
+    remove_upon_expiry: z.boolean().optional(),
+    may_receive: z.boolean().optional(),
+    may_send: z.boolean().optional(),
+    autorespond_body: z.string().optional(),
+    autorespond_subject: z.string().optional(),
+    may_access_imap: z.boolean().optional(),
+    may_access_managesieve: z.boolean().optional(),
+    may_access_pop3: z.boolean().optional(),
+    spam_action: z.string().optional(),
+    recipient_denylist: z.array(z.string()).optional(),
+    sender_allowlist: z.array(z.string()).optional(),
+    sender_denylist: z.array(z.string()).optional(),
+    spam_aggressiveness: z.enum(['default']).optional(),
+  }),
+  Expires,
+);
+
 export type MailboxCreate = z.infer<typeof MailboxCreate>;
+export type MailboxUpdate = z.infer<typeof MailboxUpdate>;

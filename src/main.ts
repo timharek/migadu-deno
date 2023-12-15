@@ -1,5 +1,5 @@
 import 'https://deno.land/std@0.209.0/dotenv/load.ts';
-import { MailboxCreate, MailboxSchema } from './schemas.ts';
+import { MailboxCreate, MailboxSchema, MailboxUpdate } from './schemas.ts';
 import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
 import { Mailbox } from './classes/mailbox.ts';
 import { Input } from '../deps.ts';
@@ -59,12 +59,31 @@ export async function create(
   return MailboxSchema.parse(response);
 }
 
-const result = await Mailbox.create({
+export type MailboxUpdateInput = MailboxUpdate & {
+  domain: string;
+  local_part: string;
+};
+export async function update(
+  input: MailboxUpdateInput,
+): Promise<MailboxSchema> {
+  if (!username || !apiKey) throw new Error('Missing envs');
+  const { domain, local_part, ...body } = input;
+
+  const url = new URL(`${MIGADU_URL}/${domain}/mailboxes/${local_part}`);
+  const response = await (await fetch(url, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify(body),
+  })).json();
+
+  return MailboxSchema.parse(response);
+}
+
+const result = await Mailbox.update({
   domain: 'harek.dev',
   local_part: 'cli-new',
-  name: 'New CLI',
-  password_method: 'invitation',
-  password_recovery_email: 'tim@harek.dev',
+  name: 'it works!',
+  autorespond_active: false,
 });
 
 console.log(result);

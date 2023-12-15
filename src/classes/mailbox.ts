@@ -1,4 +1,4 @@
-import { create, show } from '../main.ts';
+import { create, MailboxUpdateInput, show, update } from '../main.ts';
 import { MailboxCreate, MailboxSchema } from '../schemas.ts';
 
 export class Mailbox {
@@ -14,5 +14,11 @@ export class Mailbox {
     const createdMailbox = await create(input);
 
     return new Mailbox(createdMailbox);
+  }
+
+  public static async update(input: MailboxUpdateInput): Promise<Mailbox> {
+    const updatedMailbox = await update(input);
+
+    return new Mailbox(updatedMailbox);
   }
 }
