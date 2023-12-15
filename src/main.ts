@@ -79,11 +79,12 @@ export async function update(
   return MailboxSchema.parse(response);
 }
 
-const result = await Mailbox.update({
-  domain: 'harek.dev',
-  local_part: 'cli-new',
-  name: 'it works!',
-  autorespond_active: false,
-});
+// const result = await Mailbox.update({
+//   domain: 'harek.dev',
+//   local_part: 'cli-new',
+//   name: 'it works!',
+//   autorespond_active: false,
+// });
+const result = await Mailbox.get('harek.dev', 'cli-new');
 
 console.log(result);

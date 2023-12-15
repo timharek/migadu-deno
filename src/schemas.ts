@@ -27,6 +27,14 @@ const ForwardSchema = z.object({
   remove_upon_expiry: z.boolean(),
 });
 
+const SpamAction = z.enum(['folder', 'subject', 'none', 'drop']);
+const SpamAgressiveness = z.enum([
+  'default',
+  'permissive',
+  'more_permissive',
+  'most_permissive',
+]);
+
 export const MailboxSchema = z.object({
   name: z.string(),
   address: Email,
@@ -49,14 +57,14 @@ export const MailboxSchema = z.object({
   may_access_imap: z.boolean(),
   may_access_managesieve: z.boolean(),
   may_access_pop3: z.boolean(),
-  spam_action: z.string(),
+  spam_action: SpamAction,
   delegations: z.array(Email),
   changed_at: z.string(),
   forwardings: z.array(ForwardSchema),
   recipient_denylist: z.array(z.string()),
   sender_allowlist: z.array(z.string()),
   sender_denylist: z.array(z.string()),
-  spam_aggressiveness: z.enum(['default']),
+  spam_aggressiveness: SpamAgressiveness,
 });
 
 export type MailboxSchema = z.infer<typeof MailboxSchema>;
@@ -90,6 +98,7 @@ const Expires = z.discriminatedUnion('autorespond_active', [
     autorespond_active: z.literal(false),
   }),
 ]);
+
 const MailboxUpdate = z.intersection(
   z.object({
     name: z.string().optional(),
@@ -105,11 +114,11 @@ const MailboxUpdate = z.intersection(
     may_access_imap: z.boolean().optional(),
     may_access_managesieve: z.boolean().optional(),
     may_access_pop3: z.boolean().optional(),
-    spam_action: z.string().optional(),
+    spam_action: SpamAction.optional(),
     recipient_denylist: z.array(z.string()).optional(),
     sender_allowlist: z.array(z.string()).optional(),
     sender_denylist: z.array(z.string()).optional(),
-    spam_aggressiveness: z.enum(['default']).optional(),
+    spam_aggressiveness: SpamAgressiveness.optional(),
   }),
   Expires,
 );
