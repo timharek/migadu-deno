@@ -35,12 +35,12 @@ export const MailboxSchema = z.object({
   storage_usage: z.number(),
   domain_name: Domain,
   expireable: z.boolean(),
-  is_internal: z.boolean(),
+  is_internal: z.boolean().nullish(),
   local_part: z.string(),
   remove_upon_expiry: z.boolean(),
   identities: z.array(IdentitySchema),
   autorespond_expires_on: z.string().datetime().nullable(),
-  autorespond_active: z.boolean(),
+  autorespond_active: z.boolean().nullable(),
   may_receive: z.boolean(),
   may_send: z.boolean(),
   autorespond_body: z.string(),
@@ -59,3 +59,25 @@ export const MailboxSchema = z.object({
 });
 
 export type MailboxSchema = z.infer<typeof MailboxSchema>;
+
+const Invitation = z.discriminatedUnion('password_method', [
+  z.object({
+    password_method: z.literal('invitation'),
+    password_recovery_email: Email,
+  }),
+  z.object({
+    password_method: z.literal('passord'),
+    password: z.string(),
+  }),
+]);
+//{"name":"Mailbox Name", "local_part":"demo", "password_method":"invitation", "password_recovery_email":"invitee@somewhere.tld"}
+const MailboxCreate = z.intersection(
+  z.object({
+    domain: z.string(),
+    name: z.string(),
+    local_part: z.string(),
+  }),
+  Invitation,
+);
+
+export type MailboxCreate = z.infer<typeof MailboxCreate>;

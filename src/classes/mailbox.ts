@@ -1,5 +1,5 @@
-import { show } from '../main.ts';
-import { MailboxSchema } from '../schemas.ts';
+import { create, show } from '../main.ts';
+import { MailboxCreate, MailboxSchema } from '../schemas.ts';
 
 export class Mailbox {
   private constructor(private data: MailboxSchema) {}
@@ -8,5 +8,11 @@ export class Mailbox {
     const mailbox = await show(domain, localPart);
 
     return new Mailbox(mailbox);
+  }
+
+  public static async create(input: MailboxCreate): Promise<Mailbox> {
+    const createdMailbox = await create(input);
+
+    return new Mailbox(createdMailbox);
   }
 }
