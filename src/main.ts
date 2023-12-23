@@ -11,10 +11,17 @@ const headers = new Headers({
   'Content-Type': 'application/json',
 });
 
-export async function index(domain: string): Promise<unknown> {
+export async function index(
+  domain: string,
+  localPart?: string,
+): Promise<unknown> {
   if (!username || !apiKey) throw new Error('Missing envs');
 
-  const url = new URL(`${MIGADU_URL}/${domain}/mailboxes`);
+  let url = new URL(`${MIGADU_URL}/${domain}/mailboxes`);
+  if (localPart) {
+    url = new URL(`${MIGADU_URL}/${domain}/mailboxes/${localPart}/identities`);
+  }
+
   return await (await fetch(url, { headers })).json();
 }
 

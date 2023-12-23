@@ -2,6 +2,7 @@ import config from '../../deno.json' assert { type: 'json' };
 import 'https://deno.land/std@0.210.0/dotenv/load.ts';
 import { Command } from '../../deps.ts';
 import { mailbox } from './mailbox.ts';
+import { identity } from './identity.ts';
 
 const app = new Command()
   .name(config.name)
@@ -47,5 +48,6 @@ export type GlobalOptions = typeof app extends
 if (import.meta.main) {
   await app
     .command('mailbox', mailbox)
+    .command('identity', identity)
     .parse(Deno.args);
 }

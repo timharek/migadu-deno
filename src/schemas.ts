@@ -5,7 +5,7 @@ const Domain = z.string();
 const Email = z.string().email();
 const DateString = z.string(z.date());
 
-const IdentitySchema = z.object({
+export const IdentitySchema = z.object({
   name: z.string(),
   address: Email,
   domain_name: Domain,

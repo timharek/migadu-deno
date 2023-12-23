@@ -9,7 +9,10 @@ export abstract class Migadu {
   public static async get(domain: string, localPart: string): Promise<Migadu> {
     throw new Error('Not implemented yet');
   }
-  public static async list(domain: string): Promise<Migadu[]> {
+  public static async list(
+    domain: string,
+    localPart?: string,
+  ): Promise<Migadu[]> {
     throw new Error('Not implemented yet');
   }
   public static async create(input: unknown): Promise<Migadu> {
