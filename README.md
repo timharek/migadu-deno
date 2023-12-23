@@ -9,8 +9,8 @@ There is also an CLI available. More documentaion is coming.
 
 The following is not yet implemented:
 
-- Aliases
-- Rewrites (not sure if I want to implement this)
+- [Aliases](https://www.migadu.com/api/#aliases)
+- [Rewrites](https://www.migadu.com/api/#rewrites) (not sure if I want to implement this)
 
 ## Usage
 
