@@ -67,7 +67,7 @@ export async function create(
     body: JSON.stringify(body),
   });
   if (result.status !== 200) {
-    throw new Error(result.statusText);
+    throw new CustomError(result.statusText);
   }
   return result.json();
 }
@@ -107,7 +107,7 @@ export async function delete_(
   }
   const result = await fetch(url, { method: 'DELETE', headers });
   if (result.status !== 200) {
-    throw new Error(result.statusText);
+    throw new CustomError(result.statusText);
   }
   return result.json();
 }
