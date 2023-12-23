@@ -44,8 +44,9 @@ export const mailbox = new Command<GlobalOptions>()
       password,
     ): Promise<void> {
       let mbox;
-      if (!password || !recoveryEmail) {
+      if (!password && !recoveryEmail) {
         this.showHelp();
+        Deno.exit(0);
       }
       if (password) {
         mbox = await Mailbox.create({

@@ -1,3 +1,4 @@
+import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
 import {
   create,
   delete_,
@@ -15,20 +16,27 @@ export class Mailbox extends Migadu {
   }
 
   public static async get(domain: string, localPart: string): Promise<Mailbox> {
-    const mailbox = await show(domain, localPart);
+    const response = await show(domain, localPart);
+    const mailbox = MailboxSchema.parse(response);
 
     return new Mailbox(mailbox);
   }
 
   public static async list(domain: string): Promise<Mailbox[]> {
-    const mailboxesRaw = await index(domain);
+    const response = await index(domain);
+    const { mailboxes: mailboxesRaw } = z.object({
+      mailboxes: z.array(MailboxSchema),
+    }).parse(
+      response,
+    );
     const mailboxes = mailboxesRaw.map((mbox) => new Mailbox(mbox));
 
     return mailboxes;
   }
 
   public static async create(input: MailboxCreate): Promise<Mailbox> {
-    const createdMailbox = await create(input);
+    const response = await create(input);
+    const createdMailbox = MailboxSchema.parse(response);
 
     return new Mailbox(createdMailbox);
   }
@@ -44,7 +52,8 @@ export class Mailbox extends Migadu {
     localPart: string,
   ): Promise<string> {
     // TODO: Check if the mailbox exists before trying to delete
-    await delete_(domain, localPart);
+    const response = await delete_(domain, localPart);
+    MailboxSchema.parse(response);
 
     return `Deleted ${localPart}@${domain}`;
   }

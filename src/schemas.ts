@@ -17,6 +17,8 @@ const IdentitySchema = z.object({
   may_access_pop3: z.boolean(),
 });
 
+export type IdentitySchema = z.infer<typeof IdentitySchema>;
+
 const ForwardSchema = z.object({
   address: Email,
   blocked_at: DateString.nullable(),

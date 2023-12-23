@@ -1,6 +1,5 @@
 import 'https://deno.land/std@0.209.0/dotenv/load.ts';
 import { MailboxCreate, MailboxSchema, MailboxUpdate } from './schemas.ts';
-import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
 
 const MIGADU_URL = 'https://api.migadu.com/v1/domains';
 const username = Deno.env.get('MIGADU_USER');
@@ -12,44 +11,33 @@ const headers = new Headers({
   'Content-Type': 'application/json',
 });
 
-export async function index(domain: string): Promise<MailboxSchema[]> {
+export async function index(domain: string): Promise<unknown> {
   if (!username || !apiKey) throw new Error('Missing envs');
 
   const url = new URL(`${MIGADU_URL}/${domain}/mailboxes`);
-  const response = await (await fetch(url, { headers })).json();
-
-  const { mailboxes } = z.object({ mailboxes: z.array(MailboxSchema) }).parse(
-    response,
-  );
-
-  return mailboxes;
+  return await (await fetch(url, { headers })).json();
 }
 
 export async function show(
   domain: string,
   localPart: string,
-): Promise<MailboxSchema> {
+): Promise<unknown> {
   if (!username || !apiKey) throw new Error('Missing envs');
 
   const url = new URL(`${MIGADU_URL}/${domain}/mailboxes/${localPart}`);
-  const response = await (await fetch(url, { headers })).json();
-  return MailboxSchema.parse(response);
+  return (await fetch(url, { headers })).json();
 }
 
-export async function create(
-  input: MailboxCreate,
-): Promise<MailboxSchema> {
+export async function create(input: MailboxCreate): Promise<unknown> {
   if (!username || !apiKey) throw new Error('Missing envs');
   const { domain, ...body } = input;
 
   const url = new URL(`${MIGADU_URL}/${domain}/mailboxes`);
-  const response = await (await fetch(url, {
+  return (await fetch(url, {
     method: 'POST',
     headers,
     body: JSON.stringify(body),
   })).json();
-
-  return MailboxSchema.parse(response);
 }
 
 export type MailboxUpdateInput = MailboxUpdate & {
@@ -75,12 +63,9 @@ export async function update(
 export async function delete_(
   domain: string,
   localPart: string,
-): Promise<MailboxSchema> {
+): Promise<unknown> {
   if (!username || !apiKey) throw new Error('Missing envs');
 
   const url = new URL(`${MIGADU_URL}/${domain}/mailboxes/${localPart}`);
-  const response = await (await fetch(url, { method: 'DELETE', headers }))
-    .json();
-
-  return MailboxSchema.parse(response);
+  return (await fetch(url, { method: 'DELETE', headers })).json();
 }
