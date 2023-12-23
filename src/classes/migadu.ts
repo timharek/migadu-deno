@@ -28,6 +28,7 @@ export abstract class Migadu {
   public static async delete(
     domain: string,
     localPart: string,
+    id?: string,
   ): Promise<string> {
     throw new Error('Not implemented yet');
   }

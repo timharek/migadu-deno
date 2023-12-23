@@ -87,4 +87,14 @@ export const identity = new Command<GlobalOptions>()
       }
       console.log(`Created identity: ${identity.name} <${identity.email}>`);
     },
-  );
+  )
+  .command(
+    'delete <localPart:string> <id:string>',
+    'Remove identity from mailbox.',
+  )
+  .alias('remove')
+  .alias('rm')
+  .action(async ({ domain }, localPart, id) => {
+    // TODO: Add confirmation
+    console.log(await Identity.delete(domain, localPart, id));
+  });

@@ -81,6 +81,7 @@ export const mailbox = new Command<GlobalOptions>()
   .alias('remove')
   .alias('rm')
   .action(async ({ domain }, localPart) => {
+    // TODO: Add confirmation
     console.log(await Mailbox.delete(domain, localPart));
   })
   // TODO: Add optional prop for a body

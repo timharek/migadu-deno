@@ -86,9 +86,15 @@ export async function update(
 export async function delete_(
   domain: string,
   localPart: string,
+  id?: string,
 ): Promise<unknown> {
   if (!username || !apiKey) throw new Error('Missing envs');
 
-  const url = new URL(`${MIGADU_URL}/${domain}/mailboxes/${localPart}`);
+  let url = new URL(`${MIGADU_URL}/${domain}/mailboxes`);
+  if (id) {
+    url = new URL(
+      `${MIGADU_URL}/${domain}/mailboxes/${localPart}/identities/${id}`,
+    );
+  }
   return (await fetch(url, { method: 'DELETE', headers })).json();
 }

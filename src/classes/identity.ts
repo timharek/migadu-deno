@@ -1,5 +1,5 @@
 import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
-import { create, index, show } from '../main.ts';
+import { create, delete_, index, show } from '../main.ts';
 import { IdentityCreate, IdentitySchema } from '../schemas.ts';
 import { Migadu } from './migadu.ts';
 
@@ -39,6 +39,18 @@ export class Identity extends Migadu {
     const createdId = IdentitySchema.parse(response);
 
     return new Identity(createdId);
+  }
+
+  public static async delete(
+    domain: string,
+    localPart: string,
+    id: string,
+  ): Promise<string> {
+    // TODO: Check if the mailbox exists before trying to delete
+    const response = await delete_(domain, localPart, id);
+    IdentitySchema.parse(response);
+
+    return `Deleted identity ${id}@${domain} from ${localPart}@${domain}`;
   }
 
   public get name(): string {
