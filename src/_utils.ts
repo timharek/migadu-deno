@@ -104,7 +104,7 @@ export async function delete_(
 ): Promise<unknown> {
   if (!username || !apiKey) throw new Error('Missing envs');
 
-  let url = new URL(`${MIGADU_URL}/${domain}/mailboxes`);
+  let url = new URL(`${MIGADU_URL}/${domain}/mailboxes/${localPart}`);
   if (id) {
     url = new URL(
       `${MIGADU_URL}/${domain}/mailboxes/${localPart}/identities/${id}`,
