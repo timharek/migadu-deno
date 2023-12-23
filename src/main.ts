@@ -28,10 +28,16 @@ export async function index(
 export async function show(
   domain: string,
   localPart: string,
+  id?: string,
 ): Promise<unknown> {
   if (!username || !apiKey) throw new Error('Missing envs');
 
-  const url = new URL(`${MIGADU_URL}/${domain}/mailboxes/${localPart}`);
+  let url = new URL(`${MIGADU_URL}/${domain}/mailboxes`);
+  if (localPart) {
+    url = new URL(
+      `${MIGADU_URL}/${domain}/mailboxes/${localPart}/identities/${id}`,
+    );
+  }
   return (await fetch(url, { headers })).json();
 }
 

@@ -1,11 +1,22 @@
 import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
-import { index } from '../main.ts';
+import { index, show } from '../main.ts';
 import { IdentitySchema } from '../schemas.ts';
 import { Migadu } from './migadu.ts';
 
 export class Identity extends Migadu {
   private constructor(private data: IdentitySchema) {
     super();
+  }
+
+  public static async get(
+    domain: string,
+    localPart: string,
+    id: string,
+  ): Promise<Identity> {
+    const response = await show(domain, localPart, id);
+    const mailbox = IdentitySchema.parse(response);
+
+    return new Identity(mailbox);
   }
 
   public static async list(

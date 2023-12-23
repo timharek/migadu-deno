@@ -16,4 +16,17 @@ export const identity = new Command<GlobalOptions>()
     console.log(
       result.map((id) => `${id.name} <${id.email}>`).join('\n'),
     );
+  })
+  .command(
+    'show <localPart:string> <id:string>',
+    'Get single mailboxes for a domain.',
+  )
+  .alias('get')
+  .action(async ({ domain, json }, localPart, id) => {
+    const mbox = await Identity.get(domain, localPart, id);
+    if (json) {
+      console.log(JSON.stringify(mbox, null, 2));
+      return;
+    }
+    console.log(`${mbox.name} <${mbox.email}>`);
   });
