@@ -26,9 +26,9 @@ Remember to set environment variables:
 ### List all mailboxes
 
 ```typescript
-import { Mailbox } from 'https://deno.land/x/migadu/mod.ts';
+import { Mailbox } from "https://deno.land/x/migadu/mod.ts";
 
-const mailboxes = await Mailbox.list('example.org');
+const mailboxes = await Mailbox.list("example.org");
 console.log(mailboxes);
 ```
 
@@ -37,14 +37,14 @@ console.log(mailboxes);
 > [!NOTE]\
 > You cannot update a mailbox or identity, yet. This is work in progress.
 
-## Installation
+### Installation
 
 ```sh
 deno install -A https://deno.land/x/migadu/src/cli/cli.ts \
   -n migadu
 ```
 
-## Usage
+### Usage
 
 ```sh
 # List all mailboxes for domain
