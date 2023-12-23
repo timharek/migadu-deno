@@ -14,7 +14,7 @@ The following is not yet implemented:
 
 ## Usage
 
-> [!WARNING]  
+> [!WARNING]\
 > Use at own risk. There are no confirmations when deleting mailboxes and identities
 
 Remember to set environment variables:
@@ -26,15 +26,15 @@ Remember to set environment variables:
 ### List all mailboxes
 
 ```typescript
-import { Mailbox } from "https://deno.land/x/migadu/mod.ts";
+import { Mailbox } from 'https://deno.land/x/migadu/mod.ts';
 
-const mailboxes = await Mailbox.list("example.org");
+const mailboxes = await Mailbox.list('example.org');
 console.log(mailboxes);
 ```
 
 ## CLI
 
-> [!NOTE]  
+> [!NOTE]\
 > You cannot update a mailbox or identity, yet. This is work in progress.
 
 ## Installation
