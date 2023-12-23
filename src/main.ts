@@ -1,5 +1,10 @@
 import 'https://deno.land/std@0.209.0/dotenv/load.ts';
-import { MailboxCreate, MailboxSchema, MailboxUpdate } from './schemas.ts';
+import {
+  IdentityCreate,
+  MailboxCreate,
+  MailboxSchema,
+  MailboxUpdate,
+} from './schemas.ts';
 
 const MIGADU_URL = 'https://api.migadu.com/v1/domains';
 const username = Deno.env.get('MIGADU_USER');
@@ -41,11 +46,16 @@ export async function show(
   return (await fetch(url, { headers })).json();
 }
 
-export async function create(input: MailboxCreate): Promise<unknown> {
+export async function create(
+  input: MailboxCreate | IdentityCreate,
+): Promise<unknown> {
   if (!username || !apiKey) throw new Error('Missing envs');
-  const { domain, ...body } = input;
+  const { domain, mailbox, ...body } = input;
 
-  const url = new URL(`${MIGADU_URL}/${domain}/mailboxes`);
+  let url = new URL(`${MIGADU_URL}/${domain}/mailboxes`);
+  if (mailbox) {
+    url = new URL(`${MIGADU_URL}/${domain}/mailboxes/${mailbox}/identities`);
+  }
   return (await fetch(url, {
     method: 'POST',
     headers,

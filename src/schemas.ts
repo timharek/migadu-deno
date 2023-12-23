@@ -82,7 +82,7 @@ const Invitation = z.discriminatedUnion('password_method', [
     password: z.string(),
   }),
 ]);
-//{"name":"Mailbox Name", "local_part":"demo", "password_method":"invitation", "password_recovery_email":"invitee@somewhere.tld"}
+
 const MailboxCreate = z.intersection(
   z.object({
     domain: z.string(),
@@ -90,6 +90,29 @@ const MailboxCreate = z.intersection(
     local_part: z.string(),
   }),
   Invitation,
+);
+
+const IdentityPassword = z.discriminatedUnion('password_use', [
+  z.object({
+    password_use: z.literal('none'),
+  }),
+  z.object({
+    password_use: z.literal('mailbox'),
+  }),
+  z.object({
+    password_use: z.literal('custom'),
+    password: z.string(),
+  }),
+]);
+
+const IdentityCreate = z.intersection(
+  z.object({
+    domain: z.string(),
+    mailbox: z.string(),
+    name: z.string(),
+    local_part: z.string(),
+  }),
+  IdentityPassword,
 );
 
 const Expires = z.discriminatedUnion('autorespond_active', [
@@ -128,3 +151,5 @@ const MailboxUpdate = z.intersection(
 
 export type MailboxCreate = z.infer<typeof MailboxCreate>;
 export type MailboxUpdate = z.infer<typeof MailboxUpdate>;
+
+export type IdentityCreate = z.infer<typeof IdentityCreate>;

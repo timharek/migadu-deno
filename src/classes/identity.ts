@@ -1,6 +1,6 @@
 import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
-import { index, show } from '../main.ts';
-import { IdentitySchema } from '../schemas.ts';
+import { create, index, show } from '../main.ts';
+import { IdentityCreate, IdentitySchema } from '../schemas.ts';
 import { Migadu } from './migadu.ts';
 
 export class Identity extends Migadu {
@@ -32,6 +32,13 @@ export class Identity extends Migadu {
     const ids = identitesRaw.map((id) => new Identity(id));
 
     return ids;
+  }
+
+  public static async create(input: IdentityCreate): Promise<Identity> {
+    const response = await create(input);
+    const createdId = IdentitySchema.parse(response);
+
+    return new Identity(createdId);
   }
 
   public get name(): string {
