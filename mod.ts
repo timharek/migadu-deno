@@ -12,7 +12,7 @@
  *
  * @example
  * ```typescript
- * import { Mailbox } from './src/classes/mailbox.ts';
+ * import { Mailbox } from 'https://deno.land/x/migadu/mod.ts';
  *
  * const mailboxes = await Mailbox.list("example.org")
  *
