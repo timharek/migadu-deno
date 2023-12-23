@@ -35,7 +35,7 @@ export class Identity extends Migadu {
   }
 
   public static async create(input: IdentityCreate): Promise<Identity> {
-    const response = await create(input);
+    const response = await create({ type: 'identity', IdentityCreate: input });
     const createdId = IdentitySchema.parse(response);
 
     return new Identity(createdId);

@@ -35,7 +35,7 @@ export class Mailbox extends Migadu {
   }
 
   public static async create(input: MailboxCreate): Promise<Mailbox> {
-    const response = await create(input);
+    const response = await create({ type: 'mailbox', MailboxCreate: input });
     const createdMailbox = MailboxSchema.parse(response);
 
     return new Mailbox(createdMailbox);

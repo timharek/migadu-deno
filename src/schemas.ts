@@ -115,6 +115,17 @@ const IdentityCreate = z.intersection(
   IdentityPassword,
 );
 
+const Create = z.discriminatedUnion('type', [
+  z.object({
+    type: z.literal('identity'),
+    IdentityCreate,
+  }),
+  z.object({
+    type: z.literal('mailbox'),
+    MailboxCreate,
+  }),
+]);
+
 const Expires = z.discriminatedUnion('autorespond_active', [
   z.object({
     autorespond_active: z.literal(true),
@@ -153,3 +164,5 @@ export type MailboxCreate = z.infer<typeof MailboxCreate>;
 export type MailboxUpdate = z.infer<typeof MailboxUpdate>;
 
 export type IdentityCreate = z.infer<typeof IdentityCreate>;
+
+export type Create = z.infer<typeof Create>;
