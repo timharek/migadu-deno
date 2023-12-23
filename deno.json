@@ -1,7 +1,7 @@
 {
   "tasks": {
     "run": "deno run -A src/cli/cli.ts",
-    "check": "deno fmt --check && deno lint",
+    "check": "deno fmt --check && deno lint && deno check **/*.ts",
     "setup:hooks": "deno run -A -r https://deno.land/x/githooks/githooks.ts"
   },
   "name": "migadu",
