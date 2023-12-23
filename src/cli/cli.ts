@@ -12,8 +12,12 @@ const app = new Command()
   .meta('Author', config.author)
   .meta('Source', config.source)
   .example(
-    'Example #1',
-    'magic -v',
+    'List all mailboxes for domain',
+    'migadu mbox list --domain example.org',
+  )
+  .example(
+    'Get mailbox from domain',
+    'migadu mbox get myName --domain example.org',
   )
   .action(function (): void {
     this.showHelp();
