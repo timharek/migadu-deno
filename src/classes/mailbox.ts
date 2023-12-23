@@ -1,4 +1,11 @@
-import { create, delete_, MailboxUpdateInput, show, update } from '../main.ts';
+import {
+  create,
+  delete_,
+  index,
+  MailboxUpdateInput,
+  show,
+  update,
+} from '../main.ts';
 import { MailboxCreate, MailboxSchema } from '../schemas.ts';
 
 export class Mailbox {
@@ -8,6 +15,13 @@ export class Mailbox {
     const mailbox = await show(domain, localPart);
 
     return new Mailbox(mailbox);
+  }
+
+  public static async list(domain: string): Promise<Mailbox[]> {
+    const mailboxesRaw = await index(domain);
+    const mailboxes = mailboxesRaw.map((mbox) => new Mailbox(mbox));
+
+    return mailboxes;
   }
 
   public static async create(input: MailboxCreate): Promise<Mailbox> {
@@ -30,5 +44,12 @@ export class Mailbox {
     await delete_(domain, localPart);
 
     return `Deleted ${localPart}@${domain}`;
+  }
+
+  public get name(): string {
+    return this.data.name;
+  }
+  public get email(): string {
+    return this.data.address;
   }
 }

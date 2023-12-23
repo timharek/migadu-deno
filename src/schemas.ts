@@ -33,6 +33,7 @@ const SpamAgressiveness = z.enum([
   'permissive',
   'more_permissive',
   'most_permissive',
+  'stricter',
 ]);
 
 export const MailboxSchema = z.object({
@@ -75,7 +76,7 @@ const Invitation = z.discriminatedUnion('password_method', [
     password_recovery_email: Email,
   }),
   z.object({
-    password_method: z.literal('passord'),
+    password_method: z.literal('password'),
     password: z.string(),
   }),
 ]);
