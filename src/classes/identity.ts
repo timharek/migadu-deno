@@ -1,4 +1,4 @@
-import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
+import { z } from '../../deps.ts';
 import { create, delete_, index, show } from '../main.ts';
 import { IdentityCreate, IdentitySchema } from '../schemas.ts';
 import { Migadu } from './migadu.ts';

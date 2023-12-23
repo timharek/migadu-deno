@@ -1,5 +1,4 @@
-import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
-import { Command } from '../../deps.ts';
+import { Command, z } from '../../deps.ts';
 import { Identity } from '../classes/identity.ts';
 import { GlobalOptions } from './cli.ts';
 

@@ -1,8 +1,4 @@
-import {
-  bgRed,
-  bgYellow,
-  black,
-} from 'https://deno.land/std@0.210.0/fmt/colors.ts';
+import { bgRed, bgYellow, black } from '../../deps.ts';
 
 type Severity = 'error' | 'warning';
 const severityMap: Record<Severity, string> = {
