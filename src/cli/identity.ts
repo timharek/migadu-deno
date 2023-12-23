@@ -32,7 +32,7 @@ export const identity = new Command<GlobalOptions>()
     console.log(`${identity.name} <${identity.email}>`);
   })
   .command(
-    'create <idName:string> <id:string> <mbox:string>',
+    'create <mbox:string> <idName:string> <id:string>',
     'Create new ID for a mailbox.',
   )
   .alias('add')
@@ -50,9 +50,9 @@ export const identity = new Command<GlobalOptions>()
   .action(
     async function (
       { domain, json, method, password },
+      mbox,
       name,
       local_part,
-      mbox,
     ): Promise<void> {
       const password_use = z.enum(['mailbox', 'none', 'custom']).parse(method);
       let identity;
@@ -97,4 +97,12 @@ export const identity = new Command<GlobalOptions>()
   .action(async ({ domain }, localPart, id) => {
     // TODO: Add confirmation
     console.log(await Identity.delete(domain, localPart, id));
+  })
+  .command(
+    'update <localPart:string> <id:string>',
+    'Update identity for mailbox.',
+  )
+  .alias('up')
+  .action((_options, _localPart, _id) => {
+    console.log('Not implemented yet.');
   });
