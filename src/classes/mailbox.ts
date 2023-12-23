@@ -7,9 +7,12 @@ import {
   update,
 } from '../main.ts';
 import { MailboxCreate, MailboxSchema } from '../schemas.ts';
+import { Migadu } from './migadu.ts';
 
-export class Mailbox {
-  private constructor(private data: MailboxSchema) {}
+export class Mailbox extends Migadu {
+  private constructor(private data: MailboxSchema) {
+    super();
+  }
 
   public static async get(domain: string, localPart: string): Promise<Mailbox> {
     const mailbox = await show(domain, localPart);
