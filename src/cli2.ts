@@ -46,7 +46,6 @@ type GlobalOptions = typeof app extends
 
 const mailbox = new Command<GlobalOptions>()
   .description('Manage mailboxes.')
-  // TODO: Why do I have to declare this again...
   .alias('mbox')
   .command('index', 'Get all mailboxes of a domain.')
   .alias('list')
@@ -122,8 +121,8 @@ const mailbox = new Command<GlobalOptions>()
   .command('delete <localPart:string>', 'Remove mailbox from domain.')
   .alias('remove')
   .alias('rm')
-  .action((_options, _localPart) => {
-    console.log('Not implemented yet.');
+  .action(async ({ domain }, localPart) => {
+    console.log(await Mailbox.delete(domain, localPart));
   })
   // TODO: Add optional prop for a body
   .command('update <localPart:string>', 'Update mailbox on domain.')

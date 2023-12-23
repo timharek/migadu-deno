@@ -16,9 +16,7 @@ export async function index(domain: string): Promise<MailboxSchema[]> {
   if (!username || !apiKey) throw new Error('Missing envs');
 
   const url = new URL(`${MIGADU_URL}/${domain}/mailboxes`);
-  const response = await (await fetch(url, {
-    headers,
-  })).json();
+  const response = await (await fetch(url, { headers })).json();
 
   const { mailboxes } = z.object({ mailboxes: z.array(MailboxSchema) }).parse(
     response,
@@ -34,10 +32,7 @@ export async function show(
   if (!username || !apiKey) throw new Error('Missing envs');
 
   const url = new URL(`${MIGADU_URL}/${domain}/mailboxes/${localPart}`);
-  const response = await (await fetch(url, {
-    headers,
-  })).json();
-
+  const response = await (await fetch(url, { headers })).json();
   return MailboxSchema.parse(response);
 }
 
@@ -84,21 +79,8 @@ export async function delete_(
   if (!username || !apiKey) throw new Error('Missing envs');
 
   const url = new URL(`${MIGADU_URL}/${domain}/mailboxes/${localPart}`);
-  const response = await (await fetch(url, {
-    method: 'DELETE',
-    headers,
-  })).json();
+  const response = await (await fetch(url, { method: 'DELETE', headers }))
+    .json();
 
   return MailboxSchema.parse(response);
 }
-
-// const result = await Mailbox.create({
-//   domain: 'harek.dev',
-//   local_part: 'cli-new2',
-//   password_method: 'invitation',
-//   password_recovery_email: 'tim@harek.dev',
-//   name: 'CLI CLI CLI',
-// });
-// const result = await Mailbox.delete('harek.dev', 'cli-new2');
-
-// console.log(result);
