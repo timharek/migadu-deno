@@ -6,7 +6,7 @@ import {
   MailboxUpdateInput,
   show,
   update,
-} from '../_main.ts';
+} from '../_utils.ts';
 import { MailboxCreate, MailboxSchema } from '../schemas.ts';
 import { Migadu } from './migadu.ts';
 

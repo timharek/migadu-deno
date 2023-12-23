@@ -1,5 +1,5 @@
 import { z } from '../../deps.ts';
-import { create, delete_, index, show } from '../_main.ts';
+import { create, delete_, index, show } from '../_utils.ts';
 import { IdentityCreate, IdentitySchema } from '../schemas.ts';
 import { Migadu } from './migadu.ts';
 
