@@ -37,13 +37,17 @@ export async function show(
 ): Promise<unknown> {
   if (!username || !apiKey) throw new Error('Missing envs');
 
-  let url = new URL(`${MIGADU_URL}/${domain}/mailboxes`);
-  if (localPart) {
+  let url = new URL(`${MIGADU_URL}/${domain}/mailboxes/${localPart}`);
+  if (id) {
     url = new URL(
       `${MIGADU_URL}/${domain}/mailboxes/${localPart}/identities/${id}`,
     );
   }
-  return (await fetch(url, { headers })).json();
+  const result = await fetch(url, { headers });
+  if (result.status !== 200) {
+    throw new Error(result.statusText);
+  }
+  return result.json();
 }
 
 export async function create(
@@ -56,11 +60,15 @@ export async function create(
   if (mailbox) {
     url = new URL(`${MIGADU_URL}/${domain}/mailboxes/${mailbox}/identities`);
   }
-  return (await fetch(url, {
+  const result = await fetch(url, {
     method: 'POST',
     headers,
     body: JSON.stringify(body),
-  })).json();
+  });
+  if (result.status !== 200) {
+    throw new Error(result.statusText);
+  }
+  return result.json();
 }
 
 export type MailboxUpdateInput = MailboxUpdate & {
@@ -96,5 +104,9 @@ export async function delete_(
       `${MIGADU_URL}/${domain}/mailboxes/${localPart}/identities/${id}`,
     );
   }
-  return (await fetch(url, { method: 'DELETE', headers })).json();
+  const result = await fetch(url, { method: 'DELETE', headers });
+  if (result.status !== 200) {
+    throw new Error(result.statusText);
+  }
+  return result.json();
 }

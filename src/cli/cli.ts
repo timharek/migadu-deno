@@ -46,8 +46,15 @@ export type GlobalOptions = typeof app extends
   : never;
 
 if (import.meta.main) {
-  await app
-    .command('mailbox', mailbox)
-    .command('identity', identity)
-    .parse(Deno.args);
+  try {
+    await app
+      .command('mailbox', mailbox)
+      .command('identity', identity)
+      .parse(Deno.args);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+      Deno.exit(1);
+    }
+  }
 }
