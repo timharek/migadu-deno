@@ -1,11 +1,5 @@
 import 'https://deno.land/std@0.209.0/dotenv/load.ts';
-import {
-  Create,
-  IdentityCreate,
-  MailboxCreate,
-  MailboxSchema,
-  MailboxUpdate,
-} from './schemas.ts';
+import { Create, MailboxSchema, MailboxUpdate } from './schemas.ts';
 import { CustomError } from './classes/custom_error.ts';
 
 const MIGADU_URL = 'https://api.migadu.com/v1/domains';
