@@ -3,6 +3,7 @@ import 'https://deno.land/std@0.210.0/dotenv/load.ts';
 import { Command } from '../../deps.ts';
 import { mailbox } from './mailbox.ts';
 import { identity } from './identity.ts';
+import { CustomError } from '../classes/custom_error.ts';
 
 const app = new Command()
   .name(config.name)
@@ -52,8 +53,8 @@ if (import.meta.main) {
       .command('identity', identity)
       .parse(Deno.args);
   } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message);
+    if (error instanceof CustomError) {
+      console.error(error.toString());
       Deno.exit(1);
     }
   }

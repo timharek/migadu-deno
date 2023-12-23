@@ -5,6 +5,7 @@ import {
   MailboxSchema,
   MailboxUpdate,
 } from './schemas.ts';
+import { CustomError } from './classes/custom_error.ts';
 
 const MIGADU_URL = 'https://api.migadu.com/v1/domains';
 const username = Deno.env.get('MIGADU_USER');
@@ -45,7 +46,7 @@ export async function show(
   }
   const result = await fetch(url, { headers });
   if (result.status !== 200) {
-    throw new Error(result.statusText);
+    throw new CustomError(result.statusText);
   }
   return result.json();
 }
